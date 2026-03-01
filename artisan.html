@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Artisan Profile</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">CraftBridge</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cart.html">Cart 🛒</a></li>
+  </ul>
+</nav>
+
+<div id="artisanProfile"></div>
+<div class="product-grid" id="artisanProducts"></div>
+
+<script>
+const products = [
+  { id:1, name:"Handwoven Saree", price:2500, image:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfFIAfBSfDTLi3TFZwvM8cOzHxee_W63QO2SByhELWI-5FtKk3wjaIlh7D4rEpp4GWbA8t19wCVKUoLeOCnaKeV_PDkwtBEG1jntEHgWRhyphenhyphenPVCJhrflotnmth-UI8b6HCIyXdmjpWagC0/s1600/CL9JApyUAAA7l7a.jpg", artisanId:1 },
+  { id:2, name:"Brass Oil Lamp", price:1800, image:"https://jlineartsandsilks.com/wp-content/uploads/2024/10/Brass-Parrot-Diya-Oil-Lamp-8-Inch-S7-JLA-2-768x1024.jpg", artisanId:2 }
+];
+
+const artisans = [
+  { id:1, name:"Lakshmi Amma", location:"Kerala", bio:"Weaving for 25 years." },
+  { id:2, name:"Ravi Kumar", location:"Jaipur", bio:"Metal craftsman." }
+];
+
+function loadArtisan(){
+  const id = localStorage.getItem("artisanId");
+  const artisan = artisans.find(a => a.id == id);
+
+  document.getElementById("artisanProfile").innerHTML = `
+    <h2>${artisan.name}</h2>
+    <p>${artisan.location}</p>
+    <p>${artisan.bio}</p>
+    <h3>Other Products</h3>
+  `;
+
+  const artisanProducts = products.filter(p => p.artisanId == id);
+  const container = document.getElementById("artisanProducts");
+  artisanProducts.forEach(product=>{
+    container.innerHTML += `
+      <div class="product-card">
+        <img src="${product.image}">
+        <h4>${product.name}</h4>
+        <p>₹${product.price}</p>
+      </div>
+    `;
+  });
+}
+
+window.onload = loadArtisan;
+</script>
+
+</body>
+</html>

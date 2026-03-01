@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Artisan Haven</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">CraftBridge</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cart.html">Cart 🛒</a></li>
+  </ul>
+  <input type="text" id="searchBar" placeholder="Search products..." onkeyup="searchProducts()">
+</nav>
+
+<section class="hero">
+  <h1>Where Tradition Meets Modern Homes</h1>
+  <p>Authentic handmade goods directly from artisans.</p>
+</section>
+
+<h2 class="section-title">Featured Products</h2>
+<div class="product-grid" id="productContainer"></div>
+
+<script>
+const products = [
+  {
+    id: 1,
+    name: "Handwoven Saree",
+    description: "Traditional Kerala cotton saree.",
+    price: 2500,
+    image: "https://www.niramneela.in/cdn/shop/files/KAS66.jpg?v=1755105360&width=1445",
+    artisanId: 1
+  },
+  {
+    id: 2,
+    name: "Brass Oil Lamp",
+    description: "Vintage handcrafted brass lamp.",
+    price: 1800,
+    image: "https://shivshaktiarts.in/cdn/shop/files/5_f4eb7586-851d-45df-93a0-e2e640545a61.jpg?v=1727760715",
+    artisanId: 2
+  }
+];
+
+function loadProducts(list = products) {
+  const container = document.getElementById("productContainer");
+  container.innerHTML = "";
+  list.forEach(product => {
+    container.innerHTML += `
+      <div class="product-card">
+        <img src="${product.image}">
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+        <p>₹${product.price}</p>
+        <button onclick="viewProduct(${product.id})">View</button>
+      </div>
+    `;
+  });
+}
+
+function searchProducts() {
+  const value = document.getElementById("searchBar").value.toLowerCase();
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(value)
+  );
+  loadProducts(filtered);
+}
+
+function viewProduct(id) {
+  localStorage.setItem("productId", id);
+  window.location.href = "product.html";
+}
+
+window.onload = () => loadProducts();
+</script>
+
+</body>
+</html>

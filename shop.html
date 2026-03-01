@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shop | Artisan Haven</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="logo">CraftBridge</div>
+
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cart.html">Cart 🛒</a></li>
+  </ul>
+
+  <input type="text" id="searchBar" placeholder="Search products..." onkeyup="searchProducts()">
+</nav>
+
+<!-- Page Title -->
+<h2 class="section-title">All Products</h2>
+
+<!-- Product Grid -->
+<div class="product-grid" id="productContainer"></div>
+
+<script>
+
+// Product Data
+const products = [
+  {
+    id: 1,
+    name: "Handwoven Saree",
+    description: "Traditional Kerala cotton saree made by skilled weavers.",
+    price: 2500,
+    image: "https://khinkhwab.com/cdn/shop/products/DSC07585_b806a31d-2c55-4a87-b757-d05838f2e037.jpg?v=1697630004",
+    artisanId: 1
+  },
+  {
+    id: 2,
+    name: "Brass Oil Lamp",
+    description: "Vintage handcrafted brass lamp for traditional decor.",
+    price: 1800,
+    image: "https://avatararts.in/cdn/shop/products/7_f8465cc8-589b-41f2-a96a-ecf054c07975.png?v=1679482436&width=1445"
+  },
+  {
+    id: 3,
+    name: "Clay Pottery Vase",
+    description: "Eco-friendly handmade clay vase.",
+    price: 950,
+    image: "https://i.etsystatic.com/47070131/r/il/3cf339/5617703815/il_fullxfull.5617703815_iips.jpg",
+    artisanId: 3
+  },
+  {
+    id: 4,
+    name: "Coconut Shell Table Decor",
+    description: "Sustainable handcrafted coconut shell decorative piece.",
+    price: 650,
+    image: "https://theindiacrafthouse.com/cdn/shop/products/CoconutCraftTableLamp-CLS01A1@2x.jpg",
+    artisanId: 4
+  },
+  {
+    id: 5,
+    name: "Bamboo Wall Hanging",
+    description: "Eco-friendly bamboo handcrafted wall decor.",
+    price: 1200,
+    image: "https://www.akway.in/cdn/shop/files/1a_4686a02a-aa60-49e6-9097-c72fefc80e54.jpg?v=1700643412",
+    artisanId: 5
+  },
+  {
+    id: 6,
+    name: "Handmade Tribal Jewellery",
+    description: "Traditional handcrafted oxidised tribal necklace set.",
+    price: 1100,
+    image: "https://arteastri.com/cdn/shop/files/1_3d13fc72-5425-4479-9825-1f6bcb59cc05.jpg?v=1737548019",
+    artisanId: 6
+  },
+  {
+    id: 7,
+    name: "Jute Storage Basket",
+    description: "Handwoven natural jute storage basket.",
+    price: 850,
+    image: "https://m.media-amazon.com/images/I/713lLFxsErL._AC_UF1000,1000_QL80_.jpg",
+    artisanId: 7
+  },
+  {
+    id: 8,
+    name: "Terracotta Diya Set",
+    description: "Handcrafted terracotta diya set for festivals.",
+    price: 500,
+    image: "https://m.media-amazon.com/images/I/51uoNYus3HL._AC_UF894,1000_QL80_.jpg",
+    artisanId: 3
+  },
+  {
+    id: 9,
+    name: "Handwoven Wool Shawl",
+    description: "Soft handmade wool shawl from traditional weavers.",
+    price: 2200,
+    image: "https://www.sindhoipatola.in/cdn/shop/files/light-pink-butta-mirror-corner-mirror-kutchi-woolen-shawl-716902.jpg?v=1743406489",
+    artisanId: 1
+  },
+  {
+    id: 10,
+    name: "Madhubani Painting",
+    description: "Authentic handmade Madhubani art on canvas.",
+    price: 3000,
+    image: "https://artstreet.in/cdn/shop/files/81xe1nB7flL._SL1500_700x700.jpg?v=1755502563",
+    artisanId: 8
+  }
+  
+];
+
+// Load Products
+function loadProducts(productList = products) {
+  const container = document.getElementById("productContainer");
+  container.innerHTML = "";
+
+  productList.forEach(product => {
+    container.innerHTML += `
+      <div class="product-card">
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+        <p><strong>₹${product.price}</strong></p>
+        <button onclick="viewProduct(${product.id})">View Details</button>
+      </div>
+    `;
+  });
+}
+
+// Search Function
+function searchProducts() {
+  const value = document.getElementById("searchBar").value.toLowerCase();
+
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(value) ||
+    product.description.toLowerCase().includes(value)
+  );
+
+  loadProducts(filteredProducts);
+}
+
+// View Product Page
+function viewProduct(id) {
+  localStorage.setItem("productId", id);
+  window.location.href = "product.html";
+}
+
+// Load All Products on Page Load
+window.onload = function() {
+  loadProducts();
+};
+
+</script>
+
+</body>
+</html>

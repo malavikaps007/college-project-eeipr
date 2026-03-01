@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">CraftBridge</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="cart.html">Cart 🛒</a></li>
+  </ul>
+</nav>
+
+<div class="product-detail" id="productDetail"></div>
+
+<script>
+const products = [
+  { id:1, name:"Handwoven Saree", description:"Traditional Kerala cotton saree.", price:2500, image:"https://via.placeholder.com/300", artisanId:1 },
+  { id:2, name:"Brass Oil Lamp", description:"Vintage handcrafted brass lamp.", price:1800, image:"https://via.placeholder.com/300", artisanId:2 }
+];
+
+const artisans = [
+  { id:1, name:"Lakshmi Amma", location:"Kerala", bio:"Weaving for 25 years." },
+  { id:2, name:"Ravi Kumar", location:"Jaipur", bio:"Third generation metal craftsman." }
+];
+
+function loadProduct() {
+  const id = localStorage.getItem("productId");
+  const product = products.find(p => p.id == id);
+  const artisan = artisans.find(a => a.id == product.artisanId);
+
+  document.getElementById("productDetail").innerHTML = `
+    <img src="${product.image}">
+    <div>
+      <h2>${product.name}</h2>
+      <p>${product.description}</p>
+      <p><strong>Price:</strong> ₹${product.price}</p>
+
+      <h3>Artisan Details</h3>
+      <p><strong>${artisan.name}</strong></p>
+      <p>${artisan.location}</p>
+      <p>${artisan.bio}</p>
+      <button onclick="viewArtisan(${artisan.id})">View More from this Artisan</button>
+    </div>
+  `;
+}
+
+function viewArtisan(id){
+  localStorage.setItem("artisanId", id);
+  window.location.href = "artisan.html";
+}
+
+window.onload = loadProduct;
+</script>
+
+</body>
+</html>
